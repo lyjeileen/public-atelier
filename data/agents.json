@@ -1,0 +1,5473 @@
+{
+  "rustic_ai.core.agents.testutils.echo_agent.EchoAgent": {
+    "agent_name": "EchoAgent",
+    "qualified_class_name": "rustic_ai.core.agents.testutils.echo_agent.EchoAgent",
+    "agent_doc": "An Agent that echoes the received message back to the sender.",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "echo_message": {
+        "handler_name": "echo_message",
+        "message_format": "generic_json",
+        "message_format_schema": {
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "EchoAgent",
+            "calling_function": "echo_message",
+            "call_type": "send_dict",
+            "message_type": "ctx.format"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.core.agents.testutils.probe_agent.ProbeAgent": {
+    "agent_name": "ProbeAgent",
+    "qualified_class_name": "rustic_ai.core.agents.testutils.probe_agent.ProbeAgent",
+    "agent_doc": "An agent used as probe in writing Agent test cases",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "collect_message": {
+        "handler_name": "collect_message",
+        "message_format": "generic_json",
+        "message_format_schema": {
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.core.agents.testutils.probe_agent.EssentialProbeAgent": {
+    "agent_name": "EssentialProbeAgent",
+    "qualified_class_name": "rustic_ai.core.agents.testutils.probe_agent.EssentialProbeAgent",
+    "agent_doc": "An agent used as probe in writing Agent test cases",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "collect_message": {
+        "handler_name": "collect_message",
+        "message_format": "generic_json",
+        "message_format_schema": {
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.core.agents.utils.user_proxy_agent.UserProxyAgent": {
+    "agent_name": "UserProxyAgent",
+    "qualified_class_name": "rustic_ai.core.agents.utils.user_proxy_agent.UserProxyAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "properties": {
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id"
+      ],
+      "title": "UserProxyAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "unwrap_and_forward_message": {
+        "handler_name": "unwrap_and_forward_message",
+        "message_format": "rustic_ai.core.messaging.core.message.Message",
+        "message_format_schema": {
+          "$defs": {
+            "AgentTag": {
+              "description": "Represents a tag that can be assigned to an agent.\n\nAttributes:\n    name (str): The name of the agent.\n    id (str): The id of the agent.",
+              "properties": {
+                "id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Id"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                }
+              },
+              "title": "AgentTag",
+              "type": "object"
+            },
+            "ForwardHeader": {
+              "description": "Represents the header for a forwarded message.\n\nAttributes:\n    origin_message_id (int): ID of the original message.\n    on_behalf_of (AgentTag): The agent on whose behalf the message is forwarded.",
+              "properties": {
+                "origin_message_id": {
+                  "title": "Origin Message Id",
+                  "type": "integer"
+                },
+                "on_behalf_of": {
+                  "$ref": "#/$defs/AgentTag"
+                }
+              },
+              "required": [
+                "origin_message_id",
+                "on_behalf_of"
+              ],
+              "title": "ForwardHeader",
+              "type": "object"
+            },
+            "FunctionalTransformer": {
+              "properties": {
+                "style": {
+                  "default": "simple",
+                  "enum": [
+                    "simple",
+                    "content_based_router"
+                  ],
+                  "title": "Style",
+                  "type": "string"
+                },
+                "handler": {
+                  "title": "Handler",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "handler"
+              ],
+              "title": "FunctionalTransformer",
+              "type": "object"
+            },
+            "JsonValue": {},
+            "PayloadTransformer": {
+              "properties": {
+                "style": {
+                  "default": "simple",
+                  "enum": [
+                    "simple",
+                    "content_based_router"
+                  ],
+                  "title": "Style",
+                  "type": "string"
+                },
+                "output_format": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "generic_json",
+                  "title": "Output Format"
+                },
+                "expression": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Expression"
+                }
+              },
+              "title": "PayloadTransformer",
+              "type": "object"
+            },
+            "Priority": {
+              "description": "Priority levels for messages.",
+              "enum": [
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1,
+                0
+              ],
+              "title": "Priority",
+              "type": "integer"
+            },
+            "ProcessEntry": {
+              "description": "Represents an entry for agent and previous message in the message history.\n\nAttributes:\n    agent (AgentTag): Identifier or name of the agent.\n    origin (int): ID of the previous message.\n    result (int): ID of the current message.",
+              "properties": {
+                "agent": {
+                  "$ref": "#/$defs/AgentTag"
+                },
+                "origin": {
+                  "title": "Origin",
+                  "type": "integer"
+                },
+                "result": {
+                  "title": "Result",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "agent",
+                "origin",
+                "result"
+              ],
+              "title": "ProcessEntry",
+              "type": "object"
+            },
+            "RoutingDestination": {
+              "description": "Represents a destination for a message in a routing slip.\n\nAttributes:\n    topics (Optional[Union[str, List[str]]]): The topic to send the message to be processed, if not specified, it will be same as the\n        incoming message with a fallback to default_topic.\n    recipient_list (List[AgentTag]): List of agents to tag for this step, be default it will not tag any agents.\n    priority (Optional[Priority]): The priority of the message produced .",
+              "properties": {
+                "topics": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Topics"
+                },
+                "recipient_list": {
+                  "default": [],
+                  "items": {
+                    "$ref": "#/$defs/AgentTag"
+                  },
+                  "title": "Recipient List",
+                  "type": "array"
+                },
+                "priority": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/Priority"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                }
+              },
+              "title": "RoutingDestination",
+              "type": "object"
+            },
+            "RoutingOrigin": {
+              "description": "Represents a filter for a message that triggered the current step in a routing slip.\n\nAttributes:\n    origin_sender (Optional[AgentTag]): The agent that sent the message that triggered the current step.\n    origin_topic (Optional[str]): The topic where the original message was sent.\n    origin_message_format (Optional[str]): The format of the original message.",
+              "properties": {
+                "origin_sender": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/AgentTag"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "origin_topic": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Origin Topic"
+                },
+                "origin_message_format": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Origin Message Format"
+                }
+              },
+              "title": "RoutingOrigin",
+              "type": "object"
+            },
+            "RoutingRule": {
+              "description": "Represents an entry in a routing slip.\n\nAttributes:\n    agent (Optional[AgentTag]): The agent which is sending this message. Either this or agent_type must be provided.\n    agent_type (Optional[str]): The type of the agent sending the message. Either this or agent must be provided.\n    method_name (Optional[str]): The method in the agent from which the message is sent.\n    origin_filter (Optional[RoutingOrigin]): Apply the step if the origin message that triggered the process matches the filter.\n    message_format (Optional[str]): The format of the message being sent that this step will act on.\n    destination (Optional[RoutingDestination]): The destination for the message.\n    mark_forwarded (Optional[bool]): Mark the message as forwarded.\n    route_times (Optional[int]): The number of times to route the message. If -1, it will route everytime the rule is satified. Default is 1.\n    transformer (Optional[Transformation]): The transformer to be applied to the message.\n    agent_state_update (Optional[StateTransformer]): The state update request to be applied to the agent.\n    guild_state_update (Optional[StateTransformer]): The state update request to be applied to the guild.",
+              "properties": {
+                "agent": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/AgentTag"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "agent_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Agent Type"
+                },
+                "method_name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Method Name"
+                },
+                "origin_filter": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/RoutingOrigin"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "message_format": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Message Format"
+                },
+                "destination": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/RoutingDestination"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "mark_forwarded": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": false,
+                  "title": "Mark Forwarded"
+                },
+                "route_times": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": 1,
+                  "title": "Route Times"
+                },
+                "transformer": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/PayloadTransformer"
+                    },
+                    {
+                      "$ref": "#/$defs/FunctionalTransformer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Transformer"
+                },
+                "agent_state_update": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/StateTransformer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "guild_state_update": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/StateTransformer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                }
+              },
+              "title": "RoutingRule",
+              "type": "object"
+            },
+            "RoutingSlip": {
+              "description": "Represents a routing slip for a message.\n\nAttributes:\n    steps (List[RoutingEntry]): List of routing steps for the message. Each step is an edge in the routing slip.",
+              "properties": {
+                "steps": {
+                  "default": [],
+                  "items": {
+                    "$ref": "#/$defs/RoutingRule"
+                  },
+                  "title": "Steps",
+                  "type": "array"
+                }
+              },
+              "title": "RoutingSlip",
+              "type": "object"
+            },
+            "StateTransformer": {
+              "description": "Represents a transformer to be applied to the state of an agent or guild.\n\nAttributes:\n    expression (str): The transformer to be applied to the state. This is a JSONata expression.\n    output_format (str): The format of the transformed state.",
+              "properties": {
+                "update_format": {
+                  "$ref": "#/$defs/StateUpdateFormat",
+                  "default": "json-merge-patch"
+                },
+                "state_update": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "State Update"
+                }
+              },
+              "title": "StateTransformer",
+              "type": "object"
+            },
+            "StateUpdateFormat": {
+              "description": "An enumeration of the formats that state updates can be sent in.\nCurrently we support JSON Patch (https://datatracker.ietf.org/doc/html/rfc6902) and\nJSON Merge Patch (https://datatracker.ietf.org/doc/html/rfc7386) is supported.\nIn future we will support crdt and other formats based on requirements.",
+              "enum": [
+                "json-patch",
+                "json-merge-patch"
+              ],
+              "title": "StateUpdateFormat",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "description": "Represents a message to be published on the message bus.\n\nAttributes:\n    sender (AgentTag): The sender of the message.\n    topic (str): The topic to which the message belongs.\n    recipient_list (List[AgentTag]): List of agents tagged in the message.\n    payload (JsonDict): The actual content or payload of the message.\n    format (str): The type of the message.\n    in_response_to (Optional[int]): ID of the message to which this is a reply, if any.\n    thread (List[int]): The list of threads to which the message belongs.\n    conversation_id (Optional[int]): ID of the conversation to which the message belongs.\n    forwarding_header (Optional[ForwardingHeader]): The header for a forwarded message.\n    routing_slip (Optional[RoutingSlip]): The routing slip for the message.\n    message_history (List[ProcessEntry]): The history of the message.\n    ttl (Optional[int]): The time to live for the message.\n\nRaises:\n    ValueError: If the provided payload is not JSON-serializable or if any of the attributes are not valid.",
+          "properties": {
+            "sender": {
+              "$ref": "#/$defs/AgentTag"
+            },
+            "topics": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              ],
+              "minLength": 1,
+              "title": "Topics"
+            },
+            "recipient_list": {
+              "default": [],
+              "items": {
+                "$ref": "#/$defs/AgentTag"
+              },
+              "title": "Recipient List",
+              "type": "array"
+            },
+            "payload": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "minProperties": 1,
+              "title": "Payload",
+              "type": "object"
+            },
+            "format": {
+              "default": "generic_json",
+              "minLength": 3,
+              "title": "Format",
+              "type": "string"
+            },
+            "in_response_to": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "In Response To"
+            },
+            "thread": {
+              "items": {
+                "type": "integer"
+              },
+              "title": "Thread",
+              "type": "array"
+            },
+            "conversation_id": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Conversation Id"
+            },
+            "forward_header": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ForwardHeader"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "routing_slip": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/RoutingSlip"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "message_history": {
+              "items": {
+                "$ref": "#/$defs/ProcessEntry"
+              },
+              "title": "Message History",
+              "type": "array"
+            },
+            "ttl": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Ttl"
+            },
+            "is_error_message": {
+              "default": false,
+              "title": "Is Error Message",
+              "type": "boolean"
+            },
+            "traceparent": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Traceparent"
+            },
+            "session_state": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "$ref": "#/$defs/JsonValue"
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Session State"
+            },
+            "topic_published_to": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Topic Published To"
+            }
+          },
+          "required": [
+            "sender",
+            "topics",
+            "payload"
+          ],
+          "title": "Message",
+          "type": "object"
+        },
+        "handler_doc": "\n    Represents a message to be published on the message bus.\n\n    Attributes:\n        sender (AgentTag): The sender of the message.\n        topic (str): The topic to which the message belongs.\n        recipient_list (List[AgentTag]): List of agents tagged in the message.\n        payload (JsonDict): The actual content or payload of the message.\n        format (str): The type of the message.\n        in_response_to (Optional[int]): ID of the message to which this is a reply, if any.\n        thread (List[int]): The list of threads to which the message belongs.\n        conversation_id (Optional[int]): ID of the conversation to which the message belongs.\n        forwarding_header (Optional[ForwardingHeader]): The header for a forwarded message.\n        routing_slip (Optional[RoutingSlip]): The routing slip for the message.\n        message_history (List[ProcessEntry]): The history of the message.\n        ttl (Optional[int]): The time to live for the message.\n\n    Raises:\n        ValueError: If the provided payload is not JSON-serializable or if any of the attributes are not valid.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "UserProxyAgent",
+            "calling_function": "unwrap_and_forward_message",
+            "call_type": "send_dict",
+            "message_type": "unwrapped_message"
+          }
+        ]
+      },
+      "forward_message_to_user": {
+        "handler_name": "forward_message_to_user",
+        "message_format": "generic_json",
+        "message_format_schema": {
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "UserProxyAgent",
+            "calling_function": "forward_message_to_user",
+            "call_type": "send_dict",
+            "message_type": "ctx.format"
+          }
+        ]
+      },
+      "handle_participants_request": {
+        "handler_name": "handle_participants_request",
+        "message_format": "rustic_ai.core.agents.utils.user_proxy_agent.ParticipantListRequest",
+        "message_format_schema": {
+          "properties": {
+            "guild_id": {
+              "title": "Guild Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "guild_id"
+          ],
+          "title": "ParticipantListRequest",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "UserProxyAgent",
+            "calling_function": "handle_participants_request",
+            "call_type": "send_dict",
+            "message_type": "'Participants'"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.core.agents.system.guild_manager_agent.GuildManagerAgent": {
+    "agent_name": "GuildManagerAgent",
+    "qualified_class_name": "rustic_ai.core.agents.system.guild_manager_agent.GuildManagerAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "$defs": {
+        "AgentSpec": {
+          "description": "A specification for an agent that describes its name, description, and properties.\n\nAttributes:\n    name (str): The name of the agent.\n    description (str): A description of the agent.\n    class_name (str): The name of the class of the agent.\n    additional_topics (List[str]): A list of additional topics to which the agent should subscribe.\n    properties (APT): The properties of the agent.\n    listen_to_default_topic (bool): Whether the agent should listen to the default topic.",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 64,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "description": {
+              "minLength": 1,
+              "title": "Description",
+              "type": "string"
+            },
+            "class_name": {
+              "title": "Class Name",
+              "type": "string"
+            },
+            "additional_topics": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Additional Topics",
+              "type": "array"
+            },
+            "properties": {
+              "$ref": "#/$defs/BaseAgentProps"
+            },
+            "listen_to_default_topic": {
+              "default": true,
+              "title": "Listen To Default Topic",
+              "type": "boolean"
+            },
+            "act_only_when_tagged": {
+              "default": false,
+              "title": "Act Only When Tagged",
+              "type": "boolean"
+            },
+            "predicates": {
+              "additionalProperties": {
+                "$ref": "#/$defs/SimpleRuntimePredicate"
+              },
+              "description": "A mapping of functions to their runtime predicates.",
+              "title": "Predicates",
+              "type": "object"
+            },
+            "dependency_map": {
+              "additionalProperties": {
+                "$ref": "#/$defs/DependencySpec"
+              },
+              "default": {},
+              "title": "Dependency Map",
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "class_name"
+          ],
+          "title": "AgentSpec",
+          "type": "object"
+        },
+        "AgentTag": {
+          "description": "Represents a tag that can be assigned to an agent.\n\nAttributes:\n    name (str): The name of the agent.\n    id (str): The id of the agent.",
+          "properties": {
+            "id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Id"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            }
+          },
+          "title": "AgentTag",
+          "type": "object"
+        },
+        "BaseAgentProps": {
+          "description": "Empty class for Agent properties.",
+          "properties": {},
+          "title": "BaseAgentProps",
+          "type": "object"
+        },
+        "DependencySpec": {
+          "properties": {
+            "class_name": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Class Name",
+              "type": "string"
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "default": {},
+              "title": "Properties"
+            }
+          },
+          "required": [
+            "class_name"
+          ],
+          "title": "DependencySpec",
+          "type": "object"
+        },
+        "FunctionalTransformer": {
+          "properties": {
+            "style": {
+              "default": "simple",
+              "enum": [
+                "simple",
+                "content_based_router"
+              ],
+              "title": "Style",
+              "type": "string"
+            },
+            "handler": {
+              "title": "Handler",
+              "type": "string"
+            }
+          },
+          "required": [
+            "handler"
+          ],
+          "title": "FunctionalTransformer",
+          "type": "object"
+        },
+        "GuildSpec": {
+          "description": "A specification for a guild that describes its name, description, and agents.\n\nAttributes:\n    name (str): The name of the guild.\n    description (str): A description of the guild.\n    properties (Dict[str, Any]): The properties of the guild.\n    agents (list[AgentSpec]): A list of agents in the guild.\n    dependency_map (Dict[str, DependencySpec]): A mapping for guild's dependency to resolver class.\n    routes (RoutingSlip): The routes to be attached to every message coming in the guild.",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 64,
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "description": {
+              "minLength": 1,
+              "title": "Description",
+              "type": "string"
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": true,
+              "default": {},
+              "title": "Properties"
+            },
+            "agents": {
+              "default": [],
+              "items": {
+                "$ref": "#/$defs/AgentSpec"
+              },
+              "title": "Agents",
+              "type": "array"
+            },
+            "dependency_map": {
+              "additionalProperties": {
+                "$ref": "#/$defs/DependencySpec"
+              },
+              "default": {},
+              "title": "Dependency Map",
+              "type": "object"
+            },
+            "routes": {
+              "$ref": "#/$defs/RoutingSlip"
+            }
+          },
+          "required": [
+            "name",
+            "description"
+          ],
+          "title": "GuildSpec",
+          "type": "object"
+        },
+        "JsonValue": {},
+        "PayloadTransformer": {
+          "properties": {
+            "style": {
+              "default": "simple",
+              "enum": [
+                "simple",
+                "content_based_router"
+              ],
+              "title": "Style",
+              "type": "string"
+            },
+            "output_format": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "generic_json",
+              "title": "Output Format"
+            },
+            "expression": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expression"
+            }
+          },
+          "title": "PayloadTransformer",
+          "type": "object"
+        },
+        "Priority": {
+          "description": "Priority levels for messages.",
+          "enum": [
+            7,
+            6,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ],
+          "title": "Priority",
+          "type": "integer"
+        },
+        "RoutingDestination": {
+          "description": "Represents a destination for a message in a routing slip.\n\nAttributes:\n    topics (Optional[Union[str, List[str]]]): The topic to send the message to be processed, if not specified, it will be same as the\n        incoming message with a fallback to default_topic.\n    recipient_list (List[AgentTag]): List of agents to tag for this step, be default it will not tag any agents.\n    priority (Optional[Priority]): The priority of the message produced .",
+          "properties": {
+            "topics": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Topics"
+            },
+            "recipient_list": {
+              "default": [],
+              "items": {
+                "$ref": "#/$defs/AgentTag"
+              },
+              "title": "Recipient List",
+              "type": "array"
+            },
+            "priority": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Priority"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "title": "RoutingDestination",
+          "type": "object"
+        },
+        "RoutingOrigin": {
+          "description": "Represents a filter for a message that triggered the current step in a routing slip.\n\nAttributes:\n    origin_sender (Optional[AgentTag]): The agent that sent the message that triggered the current step.\n    origin_topic (Optional[str]): The topic where the original message was sent.\n    origin_message_format (Optional[str]): The format of the original message.",
+          "properties": {
+            "origin_sender": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/AgentTag"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "origin_topic": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Origin Topic"
+            },
+            "origin_message_format": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Origin Message Format"
+            }
+          },
+          "title": "RoutingOrigin",
+          "type": "object"
+        },
+        "RoutingRule": {
+          "description": "Represents an entry in a routing slip.\n\nAttributes:\n    agent (Optional[AgentTag]): The agent which is sending this message. Either this or agent_type must be provided.\n    agent_type (Optional[str]): The type of the agent sending the message. Either this or agent must be provided.\n    method_name (Optional[str]): The method in the agent from which the message is sent.\n    origin_filter (Optional[RoutingOrigin]): Apply the step if the origin message that triggered the process matches the filter.\n    message_format (Optional[str]): The format of the message being sent that this step will act on.\n    destination (Optional[RoutingDestination]): The destination for the message.\n    mark_forwarded (Optional[bool]): Mark the message as forwarded.\n    route_times (Optional[int]): The number of times to route the message. If -1, it will route everytime the rule is satified. Default is 1.\n    transformer (Optional[Transformation]): The transformer to be applied to the message.\n    agent_state_update (Optional[StateTransformer]): The state update request to be applied to the agent.\n    guild_state_update (Optional[StateTransformer]): The state update request to be applied to the guild.",
+          "properties": {
+            "agent": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/AgentTag"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "agent_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Agent Type"
+            },
+            "method_name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Method Name"
+            },
+            "origin_filter": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/RoutingOrigin"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "message_format": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Message Format"
+            },
+            "destination": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/RoutingDestination"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "mark_forwarded": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Mark Forwarded"
+            },
+            "route_times": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 1,
+              "title": "Route Times"
+            },
+            "transformer": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PayloadTransformer"
+                },
+                {
+                  "$ref": "#/$defs/FunctionalTransformer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Transformer"
+            },
+            "agent_state_update": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/StateTransformer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "guild_state_update": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/StateTransformer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "title": "RoutingRule",
+          "type": "object"
+        },
+        "RoutingSlip": {
+          "description": "Represents a routing slip for a message.\n\nAttributes:\n    steps (List[RoutingEntry]): List of routing steps for the message. Each step is an edge in the routing slip.",
+          "properties": {
+            "steps": {
+              "default": [],
+              "items": {
+                "$ref": "#/$defs/RoutingRule"
+              },
+              "title": "Steps",
+              "type": "array"
+            }
+          },
+          "title": "RoutingSlip",
+          "type": "object"
+        },
+        "SimpleRuntimePredicate": {
+          "properties": {
+            "expression": {
+              "title": "Expression",
+              "type": "string"
+            }
+          },
+          "required": [
+            "expression"
+          ],
+          "title": "SimpleRuntimePredicate",
+          "type": "object"
+        },
+        "StateTransformer": {
+          "description": "Represents a transformer to be applied to the state of an agent or guild.\n\nAttributes:\n    expression (str): The transformer to be applied to the state. This is a JSONata expression.\n    output_format (str): The format of the transformed state.",
+          "properties": {
+            "update_format": {
+              "$ref": "#/$defs/StateUpdateFormat",
+              "default": "json-merge-patch"
+            },
+            "state_update": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "State Update"
+            }
+          },
+          "title": "StateTransformer",
+          "type": "object"
+        },
+        "StateUpdateFormat": {
+          "description": "An enumeration of the formats that state updates can be sent in.\nCurrently we support JSON Patch (https://datatracker.ietf.org/doc/html/rfc6902) and\nJSON Merge Patch (https://datatracker.ietf.org/doc/html/rfc7386) is supported.\nIn future we will support crdt and other formats based on requirements.",
+          "enum": [
+            "json-patch",
+            "json-merge-patch"
+          ],
+          "title": "StateUpdateFormat",
+          "type": "string"
+        }
+      },
+      "description": "A class to represent the properties of the guild manager agent.",
+      "properties": {
+        "guild_spec": {
+          "$ref": "#/$defs/GuildSpec"
+        },
+        "database_url": {
+          "title": "Database Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "guild_spec",
+        "database_url"
+      ],
+      "title": "GuildManagerAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "launch_agent": {
+        "handler_name": "launch_agent",
+        "message_format": "rustic_ai.core.agents.system.models.AgentLaunchRequest",
+        "message_format_schema": {
+          "$defs": {
+            "AgentSpec": {
+              "description": "A specification for an agent that describes its name, description, and properties.\n\nAttributes:\n    name (str): The name of the agent.\n    description (str): A description of the agent.\n    class_name (str): The name of the class of the agent.\n    additional_topics (List[str]): A list of additional topics to which the agent should subscribe.\n    properties (APT): The properties of the agent.\n    listen_to_default_topic (bool): Whether the agent should listen to the default topic.",
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "maxLength": 64,
+                  "minLength": 1,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "description": {
+                  "minLength": 1,
+                  "title": "Description",
+                  "type": "string"
+                },
+                "class_name": {
+                  "title": "Class Name",
+                  "type": "string"
+                },
+                "additional_topics": {
+                  "default": [],
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Additional Topics",
+                  "type": "array"
+                },
+                "properties": {
+                  "$ref": "#/$defs/BaseAgentProps"
+                },
+                "listen_to_default_topic": {
+                  "default": true,
+                  "title": "Listen To Default Topic",
+                  "type": "boolean"
+                },
+                "act_only_when_tagged": {
+                  "default": false,
+                  "title": "Act Only When Tagged",
+                  "type": "boolean"
+                },
+                "predicates": {
+                  "additionalProperties": {
+                    "$ref": "#/$defs/SimpleRuntimePredicate"
+                  },
+                  "description": "A mapping of functions to their runtime predicates.",
+                  "title": "Predicates",
+                  "type": "object"
+                },
+                "dependency_map": {
+                  "additionalProperties": {
+                    "$ref": "#/$defs/DependencySpec"
+                  },
+                  "default": {},
+                  "title": "Dependency Map",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name",
+                "description",
+                "class_name"
+              ],
+              "title": "AgentSpec",
+              "type": "object"
+            },
+            "BaseAgentProps": {
+              "description": "Empty class for Agent properties.",
+              "properties": {},
+              "title": "BaseAgentProps",
+              "type": "object"
+            },
+            "DependencySpec": {
+              "properties": {
+                "class_name": {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "title": "Class Name",
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/$defs/JsonValue"
+                  },
+                  "default": {},
+                  "title": "Properties"
+                }
+              },
+              "required": [
+                "class_name"
+              ],
+              "title": "DependencySpec",
+              "type": "object"
+            },
+            "JsonValue": {},
+            "SimpleRuntimePredicate": {
+              "properties": {
+                "expression": {
+                  "title": "Expression",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "expression"
+              ],
+              "title": "SimpleRuntimePredicate",
+              "type": "object"
+            }
+          },
+          "description": "A class to represent a request to add an agent to the guild.",
+          "properties": {
+            "agent_spec": {
+              "$ref": "#/$defs/AgentSpec"
+            }
+          },
+          "required": [
+            "agent_spec"
+          ],
+          "title": "AgentLaunchRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to add an agent to the guild.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "launch_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.AgentLaunchResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "_announce_guild_refresh",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          }
+        ]
+      },
+      "list_agents": {
+        "handler_name": "list_agents",
+        "message_format": "rustic_ai.core.agents.system.models.AgentListRequest",
+        "message_format_schema": {
+          "description": "A class to represent a request to list the agents in the guild.",
+          "properties": {
+            "guild_id": {
+              "title": "Guild Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "guild_id"
+          ],
+          "title": "AgentListRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to list the agents in the guild.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "list_agents",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.AgentListResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "list_agents",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.BadInputResponse"
+          }
+        ]
+      },
+      "list_running_agents": {
+        "handler_name": "list_running_agents",
+        "message_format": "rustic_ai.core.agents.system.models.RunningAgentListRequest",
+        "message_format_schema": {
+          "description": "A class to represent a request to list the running agents in the guild.",
+          "properties": {
+            "guild_id": {
+              "title": "Guild Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "guild_id"
+          ],
+          "title": "RunningAgentListRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to list the running agents in the guild.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "list_running_agents",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.AgentListResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "list_running_agents",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.BadInputResponse"
+          }
+        ]
+      },
+      "get_agent": {
+        "handler_name": "get_agent",
+        "message_format": "rustic_ai.core.agents.system.models.AgentGetRequest",
+        "message_format_schema": {
+          "description": "A class to represent a request to get an agent in the guild.",
+          "properties": {
+            "guild_id": {
+              "title": "Guild Id",
+              "type": "string"
+            },
+            "agent_id": {
+              "title": "Agent Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "guild_id",
+            "agent_id"
+          ],
+          "title": "AgentGetRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to get an agent in the guild.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.AgentInfoResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.BadInputResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.BadInputResponse"
+          }
+        ]
+      },
+      "create_user_agent": {
+        "handler_name": "create_user_agent",
+        "message_format": "rustic_ai.core.agents.system.models.UserAgentCreationRequest",
+        "message_format_schema": {
+          "description": "A class to represent a request to create a user agent.",
+          "properties": {
+            "user_id": {
+              "title": "User Id",
+              "type": "string"
+            },
+            "user_name": {
+              "title": "User Name",
+              "type": "string"
+            }
+          },
+          "required": [
+            "user_id",
+            "user_name"
+          ],
+          "title": "UserAgentCreationRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to create a user agent.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "create_user_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.ConflictResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "create_user_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.UserAgentCreationResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "_announce_guild_refresh",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          }
+        ]
+      },
+      "get_user_agent": {
+        "handler_name": "get_user_agent",
+        "message_format": "rustic_ai.core.agents.system.models.UserAgentGetRequest",
+        "message_format_schema": {
+          "description": "A class to represent a request to get a user agent.",
+          "properties": {
+            "user_id": {
+              "title": "User Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "user_id"
+          ],
+          "title": "UserAgentGetRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to get a user agent.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_user_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.AgentInfoResponse"
+          },
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_user_agent",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.system.models.BadInputResponse"
+          }
+        ]
+      },
+      "get_state_handler": {
+        "handler_name": "get_state_handler",
+        "message_format": "rustic_ai.core.state.models.StateFetchRequest",
+        "message_format_schema": {
+          "$defs": {
+            "StateOwner": {
+              "description": "An enumeration of the owners of the state.",
+              "enum": [
+                "agent",
+                "guild"
+              ],
+              "title": "StateOwner",
+              "type": "string"
+            }
+          },
+          "description": "A class to represent a request to get the state of the guild or an agent.",
+          "properties": {
+            "state_owner": {
+              "$ref": "#/$defs/StateOwner",
+              "description": "The owner of the state. The owner can be an agent or the guild."
+            },
+            "guild_id": {
+              "description": "The ID of the guild to which the state belongs.",
+              "title": "Guild Id",
+              "type": "string"
+            },
+            "agent_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The ID of the agent to get the state of. It will be used if state owner is agent.\n        Will fetch the calling agent's state if not provided. Will fail if calling agent does not have access to the target agent.",
+              "title": "Agent Id"
+            },
+            "state_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The path on the state object to read. Will return the entire state object if not provided.",
+              "title": "State Path"
+            },
+            "version": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The version of the state to read. Will return the latest version if not provided.",
+              "title": "Version"
+            },
+            "timestamp": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The timestamp of the state to read. Will provide the latest state before the timestamp if there is no exact match.\n        Will return the latest version if not provided.",
+              "title": "Timestamp"
+            }
+          },
+          "required": [
+            "state_owner",
+            "guild_id"
+          ],
+          "title": "StateFetchRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to get the state of the guild or an agent.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "get_state_handler",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.state.models.StateUpdateError"
+          }
+        ]
+      },
+      "update_state_handler": {
+        "handler_name": "update_state_handler",
+        "message_format": "rustic_ai.core.state.models.StateUpdateRequest",
+        "message_format_schema": {
+          "$defs": {
+            "JsonValue": {},
+            "StateOwner": {
+              "description": "An enumeration of the owners of the state.",
+              "enum": [
+                "agent",
+                "guild"
+              ],
+              "title": "StateOwner",
+              "type": "string"
+            },
+            "StateUpdateFormat": {
+              "description": "An enumeration of the formats that state updates can be sent in.\nCurrently we support JSON Patch (https://datatracker.ietf.org/doc/html/rfc6902) and\nJSON Merge Patch (https://datatracker.ietf.org/doc/html/rfc7386) is supported.\nIn future we will support crdt and other formats based on requirements.",
+              "enum": [
+                "json-patch",
+                "json-merge-patch"
+              ],
+              "title": "StateUpdateFormat",
+              "type": "string"
+            }
+          },
+          "description": "A class to represent a request to update the state of the guild or an agent.",
+          "properties": {
+            "state_owner": {
+              "$ref": "#/$defs/StateOwner",
+              "description": "The owner of the state. The owner can be an agent or the guild."
+            },
+            "guild_id": {
+              "description": "The ID of the guild to which the state belongs.",
+              "title": "Guild Id",
+              "type": "string"
+            },
+            "agent_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The ID of the agent to which the state belongs. None if the state belongs to the guild.",
+              "title": "Agent Id"
+            },
+            "update_format": {
+              "$ref": "#/$defs/StateUpdateFormat",
+              "default": "json-merge-patch",
+              "description": "The format of the state update. Currently we support JSON Patch (https://datatracker.ietf.org/doc/html/rfc6902)\n        and JSON Merge Patch (https://datatracker.ietf.org/doc/html/rfc7386) is supported."
+            },
+            "state_update": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "description": "The update payload. The structure of the payload is defined by the update format.",
+              "title": "State Update",
+              "type": "object"
+            },
+            "update_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The path on the state object to update. Will apply update at the root of the state object if not provided.",
+              "title": "Update Path"
+            },
+            "update_version": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The version of the state to update. Will fail if the version does not match the latest version.\n        Will update the latest version if not provided.",
+              "title": "Update Version"
+            },
+            "update_timestamp": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The timestamp of the state to update. Will fail if the timestamp does not match the latest timestamp.\n        Will update the latest version if not provided.",
+              "title": "Update Timestamp"
+            }
+          },
+          "required": [
+            "state_owner",
+            "guild_id",
+            "state_update"
+          ],
+          "title": "StateUpdateRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class to represent a request to update the state of the guild or an agent.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "GuildManagerAgent",
+            "calling_function": "update_state_handler",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.state.models.StateUpdateError"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.core.agents.indexing.vector_agent.VectorAgent": {
+    "agent_name": "VectorAgent",
+    "qualified_class_name": "rustic_ai.core.agents.indexing.vector_agent.VectorAgent",
+    "agent_doc": "\n    Agent that handles document indexing and similarity search using a vector store.\n    ",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "ingest_document": {
+        "handler_name": "ingest_document",
+        "message_format": "rustic_ai.core.agents.indexing.vector_agent.IngestDocuments",
+        "message_format_schema": {
+          "$defs": {
+            "Document": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "$ref": "#/$defs/JsonValue"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": {},
+                  "title": "Metadata"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "mimetype": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "text/plain",
+                  "title": "Mimetype"
+                },
+                "encoding": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "utf-8",
+                  "title": "Encoding"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "Document",
+              "type": "object"
+            },
+            "JsonValue": {},
+            "MediaLink": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "$ref": "#/$defs/JsonValue"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": {},
+                  "title": "Metadata"
+                },
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                },
+                "mimetype": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Mimetype"
+                },
+                "encoding": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Encoding"
+                },
+                "on_filesystem": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": false,
+                  "title": "On Filesystem"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "MediaLink",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "documents": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Document"
+                  },
+                  {
+                    "$ref": "#/$defs/MediaLink"
+                  }
+                ]
+              },
+              "title": "Documents",
+              "type": "array"
+            }
+          },
+          "required": [
+            "documents"
+          ],
+          "title": "IngestDocuments",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "VectorAgent",
+            "calling_function": "ingest_document",
+            "call_type": "send",
+            "message_type": "vectorstore"
+          }
+        ]
+      },
+      "answer_query": {
+        "handler_name": "answer_query",
+        "message_format": "rustic_ai.core.agents.indexing.vector_agent.VectorSearchQuery",
+        "message_format_schema": {
+          "properties": {
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "id": {
+              "default": "",
+              "title": "Id",
+              "type": "string"
+            },
+            "k": {
+              "default": 1,
+              "title": "Number of similar documents to return",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "VectorSearchQuery",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "VectorAgent",
+            "calling_function": "answer_query",
+            "call_type": "send",
+            "message_type": "vectorstore"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "vectorstore",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "vectorstore"
+      },
+      {
+        "dependency_key": "filesystem",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "filesystem"
+      },
+      {
+        "dependency_key": "textsplitter",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "textsplitter"
+      },
+      {
+        "dependency_key": "vectorstore",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "vectorstore"
+      }
+    ]
+  },
+  "rustic_ai.core.agents.llm.simple_llm_agent.SimpleLLMAgent": {
+    "agent_name": "SimpleLLMAgent",
+    "qualified_class_name": "rustic_ai.core.agents.llm.simple_llm_agent.SimpleLLMAgent",
+    "agent_doc": "\n    This is a simple LLM agent, that will call and LLM and return the response.\n    ",
+    "agent_props_schema": {
+      "properties": {
+        "system_messages": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "System Messages",
+          "type": "array"
+        },
+        "chat_memory": {
+          "default": 0,
+          "title": "Chat Memory",
+          "type": "integer"
+        }
+      },
+      "title": "SimpleLLMAgentConf",
+      "type": "object"
+    },
+    "message_handlers": {
+      "some_message_handler": {
+        "handler_name": "some_message_handler",
+        "message_format": "rustic_ai.core.agents.llm.simple_llm_agent.SimpleChatMessage",
+        "message_format_schema": {
+          "properties": {
+            "content": {
+              "title": "Content",
+              "type": "string"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "title": "SimpleChatMessage",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "SimpleLLMAgent",
+            "calling_function": "some_message_handler",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.llm.simple_llm_agent.SimpleChatResponse"
+          },
+          {
+            "calling_class": "SimpleLLMAgent",
+            "calling_function": "some_message_handler",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.guild.agent_ext.depends.llm.models.ChatCompletionError"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "llm",
+        "dependency_var": null,
+        "guild_level": false,
+        "agent_level": true,
+        "variable_name": "llm"
+      }
+    ]
+  },
+  "rustic_ai.huggingface.agents.diffusion.pix2pix.Image2ImageAgent": {
+    "agent_name": "Image2ImageAgent",
+    "qualified_class_name": "rustic_ai.huggingface.agents.diffusion.pix2pix.Image2ImageAgent",
+    "agent_doc": "\n    Generate image from a given image and a query\n    ",
+    "agent_props_schema": {
+      "properties": {
+        "torch_device": {
+          "default": "cpu",
+          "title": "Torch device to use for inference",
+          "type": "string"
+        },
+        "model_id": {
+          "default": "timbrooks/instruct-pix2pix",
+          "title": "Model Id",
+          "type": "string"
+        }
+      },
+      "title": "Pix2PixProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "process_user_query": {
+        "handler_name": "process_user_query",
+        "message_format": "rustic_ai.huggingface.agents.diffusion.pix2pix.ImageQuery",
+        "message_format_schema": {
+          "properties": {
+            "generation_prompt": {
+              "title": "Generation Prompt",
+              "type": "string"
+            },
+            "num_images": {
+              "default": 1,
+              "title": "Num Images",
+              "type": "integer"
+            },
+            "height": {
+              "default": 512,
+              "title": "Height",
+              "type": "integer"
+            },
+            "width": {
+              "default": 512,
+              "title": "Width",
+              "type": "integer"
+            },
+            "num_inference_steps": {
+              "default": 50,
+              "title": "Num Inference Steps",
+              "type": "integer"
+            },
+            "image_format": {
+              "default": "png",
+              "title": "Image Format",
+              "type": "string"
+            },
+            "guidance_scale": {
+              "default": 7.5,
+              "title": "Guidance Scale",
+              "type": "number"
+            },
+            "image_path": {
+              "title": "Image Path",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation_prompt",
+            "image_path"
+          ],
+          "title": "ImageQuery",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "Image2ImageAgent",
+            "calling_function": "process_user_query",
+            "call_type": "send",
+            "message_type": "rustic_ai.huggingface.agents.models.ImageGenerationResponse"
+          },
+          {
+            "calling_class": "Image2ImageAgent",
+            "calling_function": "process_user_query",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "filesystem",
+        "dependency_var": "guild_fs",
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "guild_fs"
+      }
+    ]
+  },
+  "rustic_ai.huggingface.agents.diffusion.stable_diffusion_agent.RunwaymlStableDiffusionAgent": {
+    "agent_name": "RunwaymlStableDiffusionAgent",
+    "qualified_class_name": "rustic_ai.huggingface.agents.diffusion.stable_diffusion_agent.RunwaymlStableDiffusionAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "properties": {
+        "torch_device": {
+          "default": "cpu",
+          "title": "Torch device to use for inference",
+          "type": "string"
+        },
+        "model_id": {
+          "default": "stabilityai/stable-diffusion-3.5-medium",
+          "title": "Model Id",
+          "type": "string"
+        }
+      },
+      "title": "RunwaymlStableDiffusionProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "generate_image": {
+        "handler_name": "generate_image",
+        "message_format": "rustic_ai.huggingface.agents.models.ImageGenerationRequest",
+        "message_format_schema": {
+          "description": "Represents a request for generating images using a given generation model.\n\nArgs:\n    num_images: The number of images to generate. Default is 1.\n    height: The height of the generated images. Default is 512.\n    width: The width of the generated images. Default is 512.\n    num_inference_steps: The number of inference steps for generating the images. Default is 50.\n    image_format: The format of the generated images. Default is \"png\".\n    guidance_scale: The scale used for guiding the image generation. Default is 7.5.",
+          "properties": {
+            "generation_prompt": {
+              "title": "Generation Prompt",
+              "type": "string"
+            },
+            "num_images": {
+              "default": 1,
+              "title": "Num Images",
+              "type": "integer"
+            },
+            "height": {
+              "default": 512,
+              "title": "Height",
+              "type": "integer"
+            },
+            "width": {
+              "default": 512,
+              "title": "Width",
+              "type": "integer"
+            },
+            "num_inference_steps": {
+              "default": 50,
+              "title": "Num Inference Steps",
+              "type": "integer"
+            },
+            "image_format": {
+              "default": "png",
+              "title": "Image Format",
+              "type": "string"
+            },
+            "guidance_scale": {
+              "default": 7.5,
+              "title": "Guidance Scale",
+              "type": "number"
+            }
+          },
+          "required": [
+            "generation_prompt"
+          ],
+          "title": "ImageGenerationRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    Represents a request for generating images using a given generation model.\n\n    Args:\n        num_images: The number of images to generate. Default is 1.\n        height: The height of the generated images. Default is 512.\n        width: The width of the generated images. Default is 512.\n        num_inference_steps: The number of inference steps for generating the images. Default is 50.\n        image_format: The format of the generated images. Default is \"png\".\n        guidance_scale: The scale used for guiding the image generation. Default is 7.5.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "RunwaymlStableDiffusionAgent",
+            "calling_function": "generate_image",
+            "call_type": "send",
+            "message_type": "rustic_ai.huggingface.agents.models.ImageGenerationResponse"
+          },
+          {
+            "calling_class": "RunwaymlStableDiffusionAgent",
+            "calling_function": "generate_image",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "filesystem",
+        "dependency_var": "guild_fs",
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "guild_fs"
+      }
+    ]
+  },
+  "rustic_ai.huggingface.agents.llm.phi_agent.LLMPhiAgent": {
+    "agent_name": "LLMPhiAgent",
+    "qualified_class_name": "rustic_ai.huggingface.agents.llm.phi_agent.LLMPhiAgent",
+    "agent_doc": "An Agent that generates a response to the given generation prompt using Phi 2.",
+    "agent_props_schema": {
+      "properties": {
+        "torch_device": {
+          "default": "cpu",
+          "title": "Torch device to use for inference",
+          "type": "string"
+        },
+        "model_id": {
+          "default": "microsoft/phi-2",
+          "title": "Model Id",
+          "type": "string"
+        }
+      },
+      "title": "PhiAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "generate_prompt": {
+        "handler_name": "generate_prompt",
+        "message_format": "rustic_ai.core.agents.commons.message_formats.GenerationPromptRequest",
+        "message_format_schema": {
+          "description": "A class representing a text generation request.",
+          "properties": {
+            "generation_prompt": {
+              "title": "Generation Prompt",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation_prompt"
+          ],
+          "title": "GenerationPromptRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class representing a text generation request.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "LLMPhiAgent",
+            "calling_function": "generate_prompt",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.GenerationPromptResponse"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.huggingface.agents.nlp.squad_agent.SquadAgent": {
+    "agent_name": "SquadAgent",
+    "qualified_class_name": "rustic_ai.huggingface.agents.nlp.squad_agent.SquadAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "find_answer": {
+        "handler_name": "find_answer",
+        "message_format": "rustic_ai.huggingface.agents.nlp.squad_agent.QuestionWithContext",
+        "message_format_schema": {
+          "properties": {
+            "context": {
+              "title": "Context",
+              "type": "string"
+            },
+            "question": {
+              "title": "Question",
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "question"
+          ],
+          "title": "QuestionWithContext",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.huggingface.agents.text_to_speech.speecht5_tts_agent.SpeechT5TTSAgent": {
+    "agent_name": "SpeechT5TTSAgent",
+    "qualified_class_name": "rustic_ai.huggingface.agents.text_to_speech.speecht5_tts_agent.SpeechT5TTSAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "convert": {
+        "handler_name": "convert",
+        "message_format": "rustic_ai.core.agents.commons.message_formats.GenerationPromptRequest",
+        "message_format_schema": {
+          "description": "A class representing a text generation request.",
+          "properties": {
+            "generation_prompt": {
+              "title": "Generation Prompt",
+              "type": "string"
+            }
+          },
+          "required": [
+            "generation_prompt"
+          ],
+          "title": "GenerationPromptRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class representing a text generation request.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "SpeechT5TTSAgent",
+            "calling_function": "convert",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.media.MediaLink"
+          },
+          {
+            "calling_class": "SpeechT5TTSAgent",
+            "calling_function": "convert",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          },
+          {
+            "calling_class": "SpeechT5TTSAgent",
+            "calling_function": "convert",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.message_formats.ErrorMessage"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "filesystem",
+        "dependency_var": "guild_fs",
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "guild_fs"
+      }
+    ]
+  },
+  "rustic_ai.litellm.agent.LiteLLMAgent": {
+    "agent_name": "LiteLLMAgent",
+    "qualified_class_name": "rustic_ai.litellm.agent.LiteLLMAgent",
+    "agent_doc": "\n    LiteLLM agent for invoking various LLM models using LiteLLM.\n    ",
+    "agent_props_schema": {
+      "$defs": {
+        "ArrayOfContentParts": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TextContentPart"
+              },
+              {
+                "$ref": "#/$defs/ImageContentPart"
+              },
+              {
+                "$ref": "#/$defs/FileContentPart"
+              }
+            ]
+          },
+          "minItems": 1,
+          "title": "ArrayOfContentParts",
+          "type": "array"
+        },
+        "AssistantMessage": {
+          "properties": {
+            "content": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Content"
+            },
+            "role": {
+              "const": "assistant",
+              "default": "assistant",
+              "title": "Role",
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            },
+            "tool_calls": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/ChatCompletionMessageToolCall"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Tool Calls"
+            }
+          },
+          "title": "AssistantMessage",
+          "type": "object"
+        },
+        "ChatCompletionMessageToolCall": {
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/$defs/ToolType"
+            },
+            "function": {
+              "$ref": "#/$defs/FunctionCall"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "function"
+          ],
+          "title": "ChatCompletionMessageToolCall",
+          "type": "object"
+        },
+        "ChatCompletionTool": {
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/ToolType"
+            },
+            "function": {
+              "$ref": "#/$defs/FunctionObject"
+            }
+          },
+          "required": [
+            "type",
+            "function"
+          ],
+          "title": "ChatCompletionTool",
+          "type": "object"
+        },
+        "FileContentPart": {
+          "properties": {
+            "type": {
+              "const": "file_url",
+              "default": "file_url",
+              "title": "Type",
+              "type": "string"
+            },
+            "file_url": {
+              "$ref": "#/$defs/FileUrl"
+            }
+          },
+          "required": [
+            "file_url"
+          ],
+          "title": "FileContentPart",
+          "type": "object"
+        },
+        "FileUrl": {
+          "properties": {
+            "url": {
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "FileUrl",
+          "type": "object"
+        },
+        "FunctionCall": {
+          "description": "The function that the model called.",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "arguments": {
+              "title": "Arguments",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "title": "FunctionCall",
+          "type": "object"
+        },
+        "FunctionMessage": {
+          "properties": {
+            "role": {
+              "const": "function",
+              "default": "function",
+              "title": "Role",
+              "type": "string"
+            },
+            "content": {
+              "title": "Content",
+              "type": "string"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            }
+          },
+          "required": [
+            "content",
+            "name"
+          ],
+          "title": "FunctionMessage",
+          "type": "object"
+        },
+        "FunctionObject": {
+          "properties": {
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Description"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "parameters": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/FunctionParameters"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "title": "FunctionObject",
+          "type": "object"
+        },
+        "FunctionParameters": {
+          "additionalProperties": true,
+          "description": "The parameters the functions accepts, described as a JSON Schema object.\nSee the [guide](/docs/guides/text-generation/function-calling) for examples, and the\n[JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.\n\nOmitting `parameters` defines a function with an empty parameter list.",
+          "properties": {},
+          "title": "FunctionParameters",
+          "type": "object"
+        },
+        "ImageContentPart": {
+          "properties": {
+            "type": {
+              "const": "image_url",
+              "default": "image_url",
+              "title": "Type",
+              "type": "string"
+            },
+            "image_url": {
+              "$ref": "#/$defs/ImageUrl"
+            }
+          },
+          "required": [
+            "image_url"
+          ],
+          "title": "ImageContentPart",
+          "type": "object"
+        },
+        "ImageDetail": {
+          "description": "Specifies the detail level of the image. Learn more in the [Vision guide]\n(/docs/guides/vision/low-or-high-fidelity-image-understanding).",
+          "enum": [
+            "auto",
+            "low",
+            "high"
+          ],
+          "title": "ImageDetail",
+          "type": "string"
+        },
+        "ImageUrl": {
+          "properties": {
+            "url": {
+              "title": "Url",
+              "type": "string"
+            },
+            "detail": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ImageDetail"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "auto"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "ImageUrl",
+          "type": "object"
+        },
+        "Models": {
+          "description": "ID of the model to use. See the [model endpoint compatibility](/docs/models/model-endpoint-compatibility) table for\ndetails on which models work with the Chat API.",
+          "enum": [
+            "gpt-4o",
+            "gpt-4o-mini",
+            "gpt-4-turbo",
+            "gpt-4-turbo-2024-04-09",
+            "gpt-4-0125-preview",
+            "gpt-4-turbo-preview",
+            "gpt-4-1106-preview",
+            "gpt-4-vision-preview",
+            "gpt-4",
+            "gpt-4-0314",
+            "gpt-4-0613",
+            "gpt-4-32k",
+            "gpt-4-32k-0314",
+            "gpt-4-32k-0613",
+            "gpt-3.5-turbo",
+            "gpt-3.5-turbo-16k",
+            "gpt-3.5-turbo-0301",
+            "gpt-3.5-turbo-0613",
+            "gpt-3.5-turbo-1106",
+            "gpt-3.5-turbo-0125",
+            "gpt-3.5-turbo-16k-0613",
+            "gemini/gemini-pro",
+            "gemini/gemini-1.5-pro-latest",
+            "gemini/gemini-pro-vision"
+          ],
+          "title": "Models",
+          "type": "string"
+        },
+        "SystemMessage": {
+          "properties": {
+            "content": {
+              "title": "Content",
+              "type": "string"
+            },
+            "role": {
+              "const": "system",
+              "default": "system",
+              "title": "Role",
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "title": "SystemMessage",
+          "type": "object"
+        },
+        "TextContentPart": {
+          "properties": {
+            "type": {
+              "const": "text",
+              "default": "text",
+              "title": "Type",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContentPart",
+          "type": "object"
+        },
+        "ToolMessage": {
+          "properties": {
+            "role": {
+              "const": "tool",
+              "default": "tool",
+              "title": "Role",
+              "type": "string"
+            },
+            "content": {
+              "title": "Content",
+              "type": "string"
+            },
+            "tool_call_id": {
+              "title": "Tool Call Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "content",
+            "tool_call_id"
+          ],
+          "title": "ToolMessage",
+          "type": "object"
+        },
+        "ToolType": {
+          "description": "The type of the tool. Currently, only `function` is supported.",
+          "enum": [
+            "function"
+          ],
+          "title": "ToolType",
+          "type": "string"
+        },
+        "UserMessage": {
+          "properties": {
+            "content": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/$defs/ArrayOfContentParts"
+                }
+              ],
+              "title": "Content"
+            },
+            "role": {
+              "const": "user",
+              "default": "user",
+              "title": "Role",
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "title": "UserMessage",
+          "type": "object"
+        }
+      },
+      "description": "Properties to apply to all LiteLLM calls made by the agent.",
+      "properties": {
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/Models"
+            }
+          ],
+          "examples": [
+            "gpt-4-turbo"
+          ],
+          "title": "Model"
+        },
+        "stream": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": false,
+          "title": "Stream"
+        },
+        "base_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Url"
+        },
+        "api_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Api Version"
+        },
+        "custom_llm_provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Custom Llm Provider"
+        },
+        "timeout": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout"
+        },
+        "messages": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/SystemMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/UserMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/AssistantMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/ToolMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/FunctionMessage"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Messages"
+        },
+        "tools": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ChatCompletionTool"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tools"
+        },
+        "message_memory": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Message Memory"
+        }
+      },
+      "required": [
+        "model"
+      ],
+      "title": "LiteLLMConf",
+      "type": "object"
+    },
+    "message_handlers": {
+      "llm_completion": {
+        "handler_name": "llm_completion",
+        "message_format": "rustic_ai.core.guild.agent_ext.depends.llm.models.ChatCompletionRequest",
+        "message_format_schema": {
+          "$defs": {
+            "ArrayOfContentParts": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContentPart"
+                  },
+                  {
+                    "$ref": "#/$defs/ImageContentPart"
+                  },
+                  {
+                    "$ref": "#/$defs/FileContentPart"
+                  }
+                ]
+              },
+              "minItems": 1,
+              "title": "ArrayOfContentParts",
+              "type": "array"
+            },
+            "AssistantMessage": {
+              "properties": {
+                "content": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Content"
+                },
+                "role": {
+                  "const": "assistant",
+                  "default": "assistant",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "tool_calls": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/ChatCompletionMessageToolCall"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Tool Calls"
+                }
+              },
+              "title": "AssistantMessage",
+              "type": "object"
+            },
+            "ChatCompletionMessageToolCall": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/FunctionCall"
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionMessageToolCall",
+              "type": "object"
+            },
+            "ChatCompletionNamedToolChoice": {
+              "description": "Specifies a tool the model should use. Use to force the model to call a specific function.",
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/Function"
+                }
+              },
+              "required": [
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionNamedToolChoice",
+              "type": "object"
+            },
+            "ChatCompletionTool": {
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/FunctionObject"
+                }
+              },
+              "required": [
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionTool",
+              "type": "object"
+            },
+            "ChatCompletionToolChoiceOption": {
+              "description": "`none` means the model will not call a function and instead generates a message. `auto` means\nthe model can pick between generating a message or calling a function.",
+              "enum": [
+                "none",
+                "auto"
+              ],
+              "title": "ChatCompletionToolChoiceOption",
+              "type": "string"
+            },
+            "FileContentPart": {
+              "properties": {
+                "type": {
+                  "const": "file_url",
+                  "default": "file_url",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "file_url": {
+                  "$ref": "#/$defs/FileUrl"
+                }
+              },
+              "required": [
+                "file_url"
+              ],
+              "title": "FileContentPart",
+              "type": "object"
+            },
+            "FileUrl": {
+              "properties": {
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "FileUrl",
+              "type": "object"
+            },
+            "Function": {
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "Function",
+              "type": "object"
+            },
+            "FunctionCall": {
+              "description": "The function that the model called.",
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "arguments": {
+                  "title": "Arguments",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "arguments"
+              ],
+              "title": "FunctionCall",
+              "type": "object"
+            },
+            "FunctionMessage": {
+              "properties": {
+                "role": {
+                  "const": "function",
+                  "default": "function",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "name"
+              ],
+              "title": "FunctionMessage",
+              "type": "object"
+            },
+            "FunctionObject": {
+              "properties": {
+                "description": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Description"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "parameters": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/FunctionParameters"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "FunctionObject",
+              "type": "object"
+            },
+            "FunctionParameters": {
+              "additionalProperties": true,
+              "description": "The parameters the functions accepts, described as a JSON Schema object.\nSee the [guide](/docs/guides/text-generation/function-calling) for examples, and the\n[JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.\n\nOmitting `parameters` defines a function with an empty parameter list.",
+              "properties": {},
+              "title": "FunctionParameters",
+              "type": "object"
+            },
+            "ImageContentPart": {
+              "properties": {
+                "type": {
+                  "const": "image_url",
+                  "default": "image_url",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "image_url": {
+                  "$ref": "#/$defs/ImageUrl"
+                }
+              },
+              "required": [
+                "image_url"
+              ],
+              "title": "ImageContentPart",
+              "type": "object"
+            },
+            "ImageDetail": {
+              "description": "Specifies the detail level of the image. Learn more in the [Vision guide]\n(/docs/guides/vision/low-or-high-fidelity-image-understanding).",
+              "enum": [
+                "auto",
+                "low",
+                "high"
+              ],
+              "title": "ImageDetail",
+              "type": "string"
+            },
+            "ImageUrl": {
+              "properties": {
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                },
+                "detail": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/ImageDetail"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "auto"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "ImageUrl",
+              "type": "object"
+            },
+            "ResponseFormat": {
+              "description": "An object specifying the format that the model must output. Compatible with [GPT-4 Turbo](/docs/models/gpt-4-and-gpt-4-turbo)\nand all GPT-3.5 Turbo models newer than `gpt-3.5-turbo-1106`.\n\nSetting to `{ \"type\": \"json_object\" }` enables JSON mode, which guarantees the message the model generates is valid JSON.\n\n**Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message.\nWithout this, the model may generate an unending stream of whitespace until the generation reaches the token limit,\nresulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if\n`finish_reason=\"length\"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.",
+              "properties": {
+                "type": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/ResponseType"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "text",
+                  "examples": [
+                    "json_object"
+                  ]
+                }
+              },
+              "title": "ResponseFormat",
+              "type": "object"
+            },
+            "ResponseType": {
+              "description": "Must be one of `text` or `json_object`.",
+              "enum": [
+                "text",
+                "json_object"
+              ],
+              "title": "ResponseType",
+              "type": "string"
+            },
+            "Stop": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "title": "Stop",
+              "type": "array"
+            },
+            "SystemMessage": {
+              "properties": {
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "role": {
+                  "const": "system",
+                  "default": "system",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "SystemMessage",
+              "type": "object"
+            },
+            "TextContentPart": {
+              "properties": {
+                "type": {
+                  "const": "text",
+                  "default": "text",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "title": "TextContentPart",
+              "type": "object"
+            },
+            "ToolMessage": {
+              "properties": {
+                "role": {
+                  "const": "tool",
+                  "default": "tool",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "tool_call_id": {
+                  "title": "Tool Call Id",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "tool_call_id"
+              ],
+              "title": "ToolMessage",
+              "type": "object"
+            },
+            "ToolType": {
+              "description": "The type of the tool. Currently, only `function` is supported.",
+              "enum": [
+                "function"
+              ],
+              "title": "ToolType",
+              "type": "string"
+            },
+            "UserMessage": {
+              "properties": {
+                "content": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayOfContentParts"
+                    }
+                  ],
+                  "title": "Content"
+                },
+                "role": {
+                  "const": "user",
+                  "default": "user",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "UserMessage",
+              "type": "object"
+            }
+          },
+          "description": "A request to generate chat completions.",
+          "properties": {
+            "messages": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/SystemMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/UserMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/AssistantMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/ToolMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/FunctionMessage"
+                  }
+                ]
+              },
+              "minItems": 1,
+              "title": "Messages",
+              "type": "array"
+            },
+            "frequency_penalty": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": -2,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Frequency Penalty"
+            },
+            "logit_bias": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "integer"
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Logit Bias"
+            },
+            "logprobs": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Logprobs"
+            },
+            "top_logprobs": {
+              "anyOf": [
+                {
+                  "maximum": 20,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Top Logprobs"
+            },
+            "max_tokens": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Tokens"
+            },
+            "n": {
+              "anyOf": [
+                {
+                  "maximum": 128,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "N"
+            },
+            "presence_penalty": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": -2,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Presence Penalty"
+            },
+            "response_format": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ResponseFormat"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "seed": {
+              "anyOf": [
+                {
+                  "maximum": 9223372036854776000,
+                  "minimum": -9223372036854776000,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Seed"
+            },
+            "stop": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/$defs/Stop"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Stop"
+            },
+            "temperature": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "Temperature"
+            },
+            "top_p": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "Top P"
+            },
+            "tools": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/ChatCompletionTool"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Tools"
+            },
+            "tool_choice": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ChatCompletionToolChoiceOption"
+                },
+                {
+                  "$ref": "#/$defs/ChatCompletionNamedToolChoice"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Tool Choice"
+            },
+            "user": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                "user-1234"
+              ],
+              "title": "User"
+            },
+            "stream_options": {
+              "anyOf": [
+                {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Stream Options"
+            },
+            "timeout": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Timeout"
+            },
+            "deployment_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Deployment Id"
+            },
+            "max_retries": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Retries"
+            },
+            "mock_response": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Mock Response"
+            }
+          },
+          "required": [
+            "messages"
+          ],
+          "title": "ChatCompletionRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A request to generate chat completions.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "LiteLLMAgent",
+            "calling_function": "llm_completion",
+            "call_type": "send",
+            "message_type": "response"
+          },
+          {
+            "calling_class": "LiteLLMAgent",
+            "calling_function": "process_api_status_error",
+            "call_type": "send_error",
+            "message_type": "rustic_ai.core.guild.agent_ext.depends.llm.models.ChatCompletionError"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.marvin.classifier_agent.MarvinAgent": {
+    "agent_name": "MarvinAgent",
+    "qualified_class_name": "rustic_ai.marvin.classifier_agent.MarvinAgent",
+    "agent_doc": "\n    An agent that uses prefect's marvin to classify the message into requested categories and extracts the requested data from\n    the message into the response.\n    ",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "classifier": {
+        "handler_name": "classifier",
+        "message_format": "rustic_ai.core.agents.commons.classify_extract.ClassifyRequest",
+        "message_format_schema": {
+          "properties": {
+            "source_text": {
+              "title": "Source Text",
+              "type": "string"
+            },
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Categories",
+              "type": "array"
+            },
+            "instructions": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Instructions"
+            }
+          },
+          "required": [
+            "source_text",
+            "categories"
+          ],
+          "title": "ClassifyRequest",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      },
+      "extractor": {
+        "handler_name": "extractor",
+        "message_format": "rustic_ai.core.agents.commons.classify_extract.ExtractRequest",
+        "message_format_schema": {
+          "$defs": {
+            "ExtractionSpec": {
+              "properties": {
+                "pydantic_model_to_extract": {
+                  "title": "Pydantic Model To Extract",
+                  "type": "string"
+                },
+                "extraction_instructions": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Extraction Instructions"
+                }
+              },
+              "required": [
+                "pydantic_model_to_extract"
+              ],
+              "title": "ExtractionSpec",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "source_text": {
+              "title": "Source Text",
+              "type": "string"
+            },
+            "extraction_spec": {
+              "$ref": "#/$defs/ExtractionSpec"
+            }
+          },
+          "required": [
+            "source_text",
+            "extraction_spec"
+          ],
+          "title": "ExtractRequest",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      },
+      "classify_and_extract": {
+        "handler_name": "classify_and_extract",
+        "message_format": "rustic_ai.core.agents.commons.classify_extract.ClassifyAndExtractRequest",
+        "message_format_schema": {
+          "$defs": {
+            "ExtractionSpec": {
+              "properties": {
+                "pydantic_model_to_extract": {
+                  "title": "Pydantic Model To Extract",
+                  "type": "string"
+                },
+                "extraction_instructions": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Extraction Instructions"
+                }
+              },
+              "required": [
+                "pydantic_model_to_extract"
+              ],
+              "title": "ExtractionSpec",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "source_text": {
+              "title": "Source Text",
+              "type": "string"
+            },
+            "categories_extractions_map": {
+              "additionalProperties": {
+                "$ref": "#/$defs/ExtractionSpec"
+              },
+              "title": "Categories Extractions Map",
+              "type": "object"
+            },
+            "classification_instructions": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Classification Instructions"
+            }
+          },
+          "required": [
+            "source_text",
+            "categories_extractions_map"
+          ],
+          "title": "ClassifyAndExtractRequest",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "MarvinAgent",
+            "calling_function": "classify_and_extract",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.commons.ClassifyAndExtractResponse"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.playwright.agent.PlaywrightScraperAgent": {
+    "agent_name": "PlaywrightScraperAgent",
+    "qualified_class_name": "rustic_ai.playwright.agent.PlaywrightScraperAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "scrape": {
+        "handler_name": "scrape",
+        "message_format": "rustic_ai.playwright.agent.WebScrapingRequest",
+        "message_format_schema": {
+          "$defs": {
+            "JsonValue": {},
+            "MediaLink": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "$ref": "#/$defs/JsonValue"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": {},
+                  "title": "Metadata"
+                },
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                },
+                "mimetype": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Mimetype"
+                },
+                "encoding": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Encoding"
+                },
+                "on_filesystem": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": false,
+                  "title": "On Filesystem"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "MediaLink",
+              "type": "object"
+            },
+            "ScrapingOutputFormat": {
+              "enum": [
+                "text/html",
+                "text/markdown"
+              ],
+              "title": "ScrapingOutputFormat",
+              "type": "string"
+            }
+          },
+          "properties": {
+            "id": {
+              "title": "ID of the request",
+              "type": "string"
+            },
+            "links": {
+              "items": {
+                "$ref": "#/$defs/MediaLink"
+              },
+              "title": "URL to scrape",
+              "type": "array"
+            },
+            "output_format": {
+              "$ref": "#/$defs/ScrapingOutputFormat",
+              "default": "text/html",
+              "description": "The format in which the scraped content will be saved. Default is text/html.",
+              "title": "Output format of the scraped content"
+            },
+            "transformer_options": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "default": {},
+              "description": "Options for the transformer to be applied to the scraped content. Default is an empty dictionary.",
+              "title": "Options for the transformer",
+              "type": "object"
+            }
+          },
+          "required": [
+            "links"
+          ],
+          "title": "WebScrapingRequest",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": []
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "filesystem",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "filesystem"
+      }
+    ]
+  },
+  "rustic_ai.serpapi.agent.SERPAgent": {
+    "agent_name": "SERPAgent",
+    "qualified_class_name": "rustic_ai.serpapi.agent.SERPAgent",
+    "agent_doc": "No documentation written for Agent",
+    "agent_props_schema": {
+      "description": "Empty class for Agent properties.",
+      "properties": {},
+      "title": "BaseAgentProps",
+      "type": "object"
+    },
+    "message_handlers": {
+      "search": {
+        "handler_name": "search",
+        "message_format": "rustic_ai.serpapi.agent.SERPQuery",
+        "message_format_schema": {
+          "description": "A class representing a search query.",
+          "properties": {
+            "engine": {
+              "title": "Engine",
+              "type": "string"
+            },
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "id": {
+              "default": "",
+              "title": "Id",
+              "type": "string"
+            },
+            "num": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 12,
+              "title": "Num"
+            },
+            "start": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0,
+              "title": "Start"
+            }
+          },
+          "required": [
+            "engine",
+            "query"
+          ],
+          "title": "SERPQuery",
+          "type": "object"
+        },
+        "handler_doc": "\n    A class representing a search query.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "SERPAgent",
+            "calling_function": "search",
+            "call_type": "send",
+            "message_type": "rustic_ai.serpapi.agent.SERPResults"
+          },
+          {
+            "calling_class": "SERPAgent",
+            "calling_function": "search",
+            "call_type": "send",
+            "message_type": "rustic_ai.serpapi.agent.SearchError"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": []
+  },
+  "rustic_ai.showcase.laira.research_manager.ResearchManager": {
+    "agent_name": "ResearchManager",
+    "qualified_class_name": "rustic_ai.showcase.laira.research_manager.ResearchManager",
+    "agent_doc": "\n    Agent that manages the research process.\n    ",
+    "agent_props_schema": {
+      "properties": {
+        "serp_results": {
+          "default": 5,
+          "title": "Serp Results",
+          "type": "integer"
+        },
+        "vector_results": {
+          "default": 5,
+          "title": "Vector Results",
+          "type": "integer"
+        },
+        "max_serp_attempts": {
+          "default": 2,
+          "title": "Max Serp Attempts",
+          "type": "integer"
+        },
+        "context_max": {
+          "default": 100000,
+          "title": "Context Max",
+          "type": "integer"
+        }
+      },
+      "title": "ResearchManagerConf",
+      "type": "object"
+    },
+    "message_handlers": {
+      "process_user_query": {
+        "handler_name": "process_user_query",
+        "message_format": "rustic_ai.core.guild.agent_ext.depends.llm.models.ChatCompletionRequest",
+        "message_format_schema": {
+          "$defs": {
+            "ArrayOfContentParts": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContentPart"
+                  },
+                  {
+                    "$ref": "#/$defs/ImageContentPart"
+                  },
+                  {
+                    "$ref": "#/$defs/FileContentPart"
+                  }
+                ]
+              },
+              "minItems": 1,
+              "title": "ArrayOfContentParts",
+              "type": "array"
+            },
+            "AssistantMessage": {
+              "properties": {
+                "content": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Content"
+                },
+                "role": {
+                  "const": "assistant",
+                  "default": "assistant",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "tool_calls": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/ChatCompletionMessageToolCall"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Tool Calls"
+                }
+              },
+              "title": "AssistantMessage",
+              "type": "object"
+            },
+            "ChatCompletionMessageToolCall": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/FunctionCall"
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionMessageToolCall",
+              "type": "object"
+            },
+            "ChatCompletionNamedToolChoice": {
+              "description": "Specifies a tool the model should use. Use to force the model to call a specific function.",
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/Function"
+                }
+              },
+              "required": [
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionNamedToolChoice",
+              "type": "object"
+            },
+            "ChatCompletionTool": {
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/ToolType"
+                },
+                "function": {
+                  "$ref": "#/$defs/FunctionObject"
+                }
+              },
+              "required": [
+                "type",
+                "function"
+              ],
+              "title": "ChatCompletionTool",
+              "type": "object"
+            },
+            "ChatCompletionToolChoiceOption": {
+              "description": "`none` means the model will not call a function and instead generates a message. `auto` means\nthe model can pick between generating a message or calling a function.",
+              "enum": [
+                "none",
+                "auto"
+              ],
+              "title": "ChatCompletionToolChoiceOption",
+              "type": "string"
+            },
+            "FileContentPart": {
+              "properties": {
+                "type": {
+                  "const": "file_url",
+                  "default": "file_url",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "file_url": {
+                  "$ref": "#/$defs/FileUrl"
+                }
+              },
+              "required": [
+                "file_url"
+              ],
+              "title": "FileContentPart",
+              "type": "object"
+            },
+            "FileUrl": {
+              "properties": {
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "FileUrl",
+              "type": "object"
+            },
+            "Function": {
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "Function",
+              "type": "object"
+            },
+            "FunctionCall": {
+              "description": "The function that the model called.",
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "arguments": {
+                  "title": "Arguments",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "arguments"
+              ],
+              "title": "FunctionCall",
+              "type": "object"
+            },
+            "FunctionMessage": {
+              "properties": {
+                "role": {
+                  "const": "function",
+                  "default": "function",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "name"
+              ],
+              "title": "FunctionMessage",
+              "type": "object"
+            },
+            "FunctionObject": {
+              "properties": {
+                "description": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Description"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "parameters": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/FunctionParameters"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "title": "FunctionObject",
+              "type": "object"
+            },
+            "FunctionParameters": {
+              "additionalProperties": true,
+              "description": "The parameters the functions accepts, described as a JSON Schema object.\nSee the [guide](/docs/guides/text-generation/function-calling) for examples, and the\n[JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.\n\nOmitting `parameters` defines a function with an empty parameter list.",
+              "properties": {},
+              "title": "FunctionParameters",
+              "type": "object"
+            },
+            "ImageContentPart": {
+              "properties": {
+                "type": {
+                  "const": "image_url",
+                  "default": "image_url",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "image_url": {
+                  "$ref": "#/$defs/ImageUrl"
+                }
+              },
+              "required": [
+                "image_url"
+              ],
+              "title": "ImageContentPart",
+              "type": "object"
+            },
+            "ImageDetail": {
+              "description": "Specifies the detail level of the image. Learn more in the [Vision guide]\n(/docs/guides/vision/low-or-high-fidelity-image-understanding).",
+              "enum": [
+                "auto",
+                "low",
+                "high"
+              ],
+              "title": "ImageDetail",
+              "type": "string"
+            },
+            "ImageUrl": {
+              "properties": {
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                },
+                "detail": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/ImageDetail"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "auto"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "ImageUrl",
+              "type": "object"
+            },
+            "ResponseFormat": {
+              "description": "An object specifying the format that the model must output. Compatible with [GPT-4 Turbo](/docs/models/gpt-4-and-gpt-4-turbo)\nand all GPT-3.5 Turbo models newer than `gpt-3.5-turbo-1106`.\n\nSetting to `{ \"type\": \"json_object\" }` enables JSON mode, which guarantees the message the model generates is valid JSON.\n\n**Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message.\nWithout this, the model may generate an unending stream of whitespace until the generation reaches the token limit,\nresulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if\n`finish_reason=\"length\"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.",
+              "properties": {
+                "type": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/ResponseType"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "text",
+                  "examples": [
+                    "json_object"
+                  ]
+                }
+              },
+              "title": "ResponseFormat",
+              "type": "object"
+            },
+            "ResponseType": {
+              "description": "Must be one of `text` or `json_object`.",
+              "enum": [
+                "text",
+                "json_object"
+              ],
+              "title": "ResponseType",
+              "type": "string"
+            },
+            "Stop": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "title": "Stop",
+              "type": "array"
+            },
+            "SystemMessage": {
+              "properties": {
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "role": {
+                  "const": "system",
+                  "default": "system",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "SystemMessage",
+              "type": "object"
+            },
+            "TextContentPart": {
+              "properties": {
+                "type": {
+                  "const": "text",
+                  "default": "text",
+                  "title": "Type",
+                  "type": "string"
+                },
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "title": "TextContentPart",
+              "type": "object"
+            },
+            "ToolMessage": {
+              "properties": {
+                "role": {
+                  "const": "tool",
+                  "default": "tool",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "tool_call_id": {
+                  "title": "Tool Call Id",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "tool_call_id"
+              ],
+              "title": "ToolMessage",
+              "type": "object"
+            },
+            "ToolType": {
+              "description": "The type of the tool. Currently, only `function` is supported.",
+              "enum": [
+                "function"
+              ],
+              "title": "ToolType",
+              "type": "string"
+            },
+            "UserMessage": {
+              "properties": {
+                "content": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayOfContentParts"
+                    }
+                  ],
+                  "title": "Content"
+                },
+                "role": {
+                  "const": "user",
+                  "default": "user",
+                  "title": "Role",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "UserMessage",
+              "type": "object"
+            }
+          },
+          "description": "A request to generate chat completions.",
+          "properties": {
+            "messages": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/SystemMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/UserMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/AssistantMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/ToolMessage"
+                  },
+                  {
+                    "$ref": "#/$defs/FunctionMessage"
+                  }
+                ]
+              },
+              "minItems": 1,
+              "title": "Messages",
+              "type": "array"
+            },
+            "frequency_penalty": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": -2,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Frequency Penalty"
+            },
+            "logit_bias": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "integer"
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Logit Bias"
+            },
+            "logprobs": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Logprobs"
+            },
+            "top_logprobs": {
+              "anyOf": [
+                {
+                  "maximum": 20,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Top Logprobs"
+            },
+            "max_tokens": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Tokens"
+            },
+            "n": {
+              "anyOf": [
+                {
+                  "maximum": 128,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "N"
+            },
+            "presence_penalty": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": -2,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Presence Penalty"
+            },
+            "response_format": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ResponseFormat"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "seed": {
+              "anyOf": [
+                {
+                  "maximum": 9223372036854776000,
+                  "minimum": -9223372036854776000,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Seed"
+            },
+            "stop": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/$defs/Stop"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Stop"
+            },
+            "temperature": {
+              "anyOf": [
+                {
+                  "maximum": 2,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "Temperature"
+            },
+            "top_p": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                1
+              ],
+              "title": "Top P"
+            },
+            "tools": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/ChatCompletionTool"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Tools"
+            },
+            "tool_choice": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ChatCompletionToolChoiceOption"
+                },
+                {
+                  "$ref": "#/$defs/ChatCompletionNamedToolChoice"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Tool Choice"
+            },
+            "user": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "examples": [
+                "user-1234"
+              ],
+              "title": "User"
+            },
+            "stream_options": {
+              "anyOf": [
+                {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Stream Options"
+            },
+            "timeout": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Timeout"
+            },
+            "deployment_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Deployment Id"
+            },
+            "max_retries": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Retries"
+            },
+            "mock_response": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Mock Response"
+            }
+          },
+          "required": [
+            "messages"
+          ],
+          "title": "ChatCompletionRequest",
+          "type": "object"
+        },
+        "handler_doc": "\n    A request to generate chat completions.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_user_query",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.ui_protocol.types.TextFormat"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "_process_query",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.indexing.vector_agent.VectorSearchQuery"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "_process_query",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          }
+        ]
+      },
+      "process_vector_results": {
+        "handler_name": "process_vector_results",
+        "message_format": "rustic_ai.core.guild.agent_ext.depends.vectorstore.vectorstore.VectorSearchResults",
+        "message_format_schema": {
+          "$defs": {
+            "Document": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "$ref": "#/$defs/JsonValue"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": {},
+                  "title": "Metadata"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                },
+                "mimetype": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "text/plain",
+                  "title": "Mimetype"
+                },
+                "encoding": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": "utf-8",
+                  "title": "Encoding"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "title": "Document",
+              "type": "object"
+            },
+            "JsonValue": {},
+            "VectorSearchResult": {
+              "description": "Represents a single search result.\n\nA search result contains a document and its score.",
+              "properties": {
+                "document": {
+                  "$ref": "#/$defs/Document"
+                },
+                "score": {
+                  "default": 1,
+                  "title": "Score",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "document"
+              ],
+              "title": "VectorSearchResult",
+              "type": "object"
+            }
+          },
+          "description": "Represents the result of a search operation.\n\nThe result contains a list of documents and the total number of documents found.",
+          "properties": {
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "query_id": {
+              "default": "",
+              "title": "Query Id",
+              "type": "string"
+            },
+            "results": {
+              "default": [],
+              "items": {
+                "$ref": "#/$defs/VectorSearchResult"
+              },
+              "title": "Results",
+              "type": "array"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "VectorSearchResults",
+          "type": "object"
+        },
+        "handler_doc": "\n    Represents the result of a search operation.\n\n    The result contains a list of documents and the total number of documents found.\n    ",
+        "send_message_calls": [
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.ui_protocol.types.TextFormat"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.ui_protocol.types.TextFormat"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.serpapi.agent.SERPQuery"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_vector_results",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          }
+        ]
+      },
+      "process_scraping_completion": {
+        "handler_name": "process_scraping_completion",
+        "message_format": "rustic_ai.playwright.agent.WebScrapingCompleted",
+        "message_format_schema": {
+          "$defs": {
+            "JsonValue": {},
+            "MediaLink": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Name"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "$ref": "#/$defs/JsonValue"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": {},
+                  "title": "Metadata"
+                },
+                "url": {
+                  "title": "Url",
+                  "type": "string"
+                },
+                "mimetype": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Mimetype"
+                },
+                "encoding": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Encoding"
+                },
+                "on_filesystem": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": false,
+                  "title": "On Filesystem"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "MediaLink",
+              "type": "object"
+            }
+          },
+          "properties": {
+            "id": {
+              "title": "ID of the request",
+              "type": "string"
+            },
+            "links": {
+              "items": {
+                "$ref": "#/$defs/MediaLink"
+              },
+              "title": "URL to scrape",
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "links"
+          ],
+          "title": "WebScrapingCompleted",
+          "type": "object"
+        },
+        "handler_doc": null,
+        "send_message_calls": [
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_scraping_completion",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_scraping_completion",
+            "call_type": "send",
+            "message_type": "rustic_ai.core.agents.indexing.vector_agent.VectorSearchQuery"
+          },
+          {
+            "calling_class": "ResearchManager",
+            "calling_function": "process_scraping_completion",
+            "call_type": "send",
+            "message_type": "rustic_ai.showcase.laira.research_manager.ResearchUpdates"
+          }
+        ]
+      }
+    },
+    "agent_dependencies": [
+      {
+        "dependency_key": "llm",
+        "dependency_var": null,
+        "guild_level": true,
+        "agent_level": false,
+        "variable_name": "llm"
+      }
+    ]
+  }
+}

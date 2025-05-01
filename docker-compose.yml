@@ -1,0 +1,48 @@
+include:
+  - common.yml
+services:
+  data_loader:
+    image: alpine:latest
+    environment:
+      - RUSTIC_AI_HOST=http://api_server:8880
+      - DATA_FOLDER=/data
+    command: >
+      /bin/sh -c "
+      apk add --no-cache curl jq bash &&
+      /bin/bash /scripts/load_agent_data.sh &&
+      /bin/bash /scripts/load_data.sh"
+    depends_on:
+      rustic_api:
+        condition: service_healthy
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+
+  ui:
+    image: dragonscaleai/rustic-ui:v0.0.1
+    environment:
+      - RUSTIC_API_BASEPATH=http://localhost:3001/rustic
+      - API_BASEPATH=http://localhost:3001/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api_proxy
+
+  api_proxy:
+    image: dragonscaleai/rustic-proxy:v0.0.1
+    container_name: api_proxy
+    command: npm start
+    environment:
+      - LOG_LEVEL=info
+      - NODE_CONFIG={"rusticApiServer":"http://api_server:8880/","tracingProvider":"zipkin","tracingServer":"http://zipkin:9411/api/v2"}
+      - RUSTIC_POSTGRES_URI=postgres://admin:Pa55W0rd@postgres:5432/platform_session
+      - RUSTIC_SESSION_SECRET=1@sdfjkl2!
+      - RUSTIC_SESSION_DURATION_IN_SECS=28800
+      - RUSTIC_PRUNE_SESSION_INTERVAL_IN_SECS=60
+    ports:
+      - "3001:3001"
+    depends_on:
+      rustic_api:
+        condition: service_healthy
+      data_loader:
+        condition: service_completed_successfully

@@ -1,0 +1,97 @@
+[{
+  "name": "Researcher",
+  "description": "This app researches on your behalf and leverages that knowledge to answer your questions.",
+  "category_name": "Research",
+  "intro_msg": "Have a question? We'll research on your behalf to get the answer",
+  "spec": {
+    "name": "Research Guild",
+    "description": "A guild to research stuff",
+    "properties": {},
+    "agents": [
+      {
+        "name": "Research Manager",
+        "description": "A manager for the research process",
+        "class_name": "rustic_ai.showcase.laira.research_manager.ResearchManager",
+        "additional_topics": [],
+        "properties": {
+          "serp_results": 5,
+          "vector_results": 5,
+          "max_serp_attempts": 2,
+          "context_max": 100000
+        },
+        "listen_to_default_topic": true,
+        "predicates": {},
+        "dependency_map": {}
+      },
+      {
+        "name": "Vector Agent",
+        "description": "An agent that handles document indexing and similarity search using a vector store.",
+        "class_name": "rustic_ai.core.agents.indexing.vector_agent.VectorAgent",
+        "additional_topics": [],
+        "properties": {},
+        "listen_to_default_topic": true,
+        "predicates": {},
+        "dependency_map": {}
+      },
+      {
+        "name": "SERP Agent",
+        "description": "An agent that handles search engine results page queries",
+        "class_name": "rustic_ai.serpapi.agent.SERPAgent",
+        "additional_topics": [],
+        "properties": {},
+        "listen_to_default_topic": true,
+        "predicates": {},
+        "dependency_map": {}
+      },
+      {
+        "name": "Playwright Agent",
+        "description": "An agent that handles web scraping using Playwright",
+        "class_name": "rustic_ai.playwright.agent.PlaywrightScraperAgent",
+        "additional_topics": [],
+        "properties": {},
+        "listen_to_default_topic": true,
+        "predicates": {},
+        "dependency_map": {}
+      }
+    ],
+    "dependency_map": {},
+    "routes": {
+      "steps": [
+        {
+          "agent": {
+            "name": "SERP Agent"
+          },
+          "message_format": "rustic_ai.serpapi.agent.SERPResults",
+          "route_times": -1,
+          "transformer": {
+            "style": "simple",
+            "output_format": "rustic_ai.playwright.agent.WebScrapingRequest",
+            "expression": "({\"id\": id, \"links\": $.results, \"output_format\": \"text/markdown\"})"
+          }
+        },
+        {
+          "agent": {
+            "name": "Playwright Agent"
+          },
+          "message_format": "rustic_ai.core.agents.commons.media.MediaLink",
+          "route_times": -1,
+          "transformer": {
+            "style": "simple",
+            "output_format": "rustic_ai.core.agents.indexing.vector_agent.IngestDocuments",
+            "expression": "{\"documents\": [$]}"
+          }
+        },
+        {
+          "agent": {
+            "name": "Research Manager"
+          },
+          "message_format": "rustic_ai.core.ui_protocol.types.TextFormat",
+          "destination": {
+            "topics": "user_message_broadcast"
+          },
+          "route_times": 1
+        }
+      ]
+    }
+  }
+}]

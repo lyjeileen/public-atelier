@@ -1,0 +1,112 @@
+services:
+  # The zipkin process services the UI, and also exposes a POST endpoint that
+  # instrumentation can send trace data to.
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:3
+    container_name: zipkin
+    # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
+    environment:
+      - STORAGE_TYPE=mem
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to increase heap size
+      - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
+    ports:
+      # Port used for the Zipkin UI and HTTP Api
+      - "9411:9411"
+      - "9412:9412"
+    # Uncomment to enable debug logging
+    # command: --logging.level.zipkin2=DEBUG
+
+  otel-collector:
+    image: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.123.0
+    container_name: otelcol
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-zipkin-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # GRPC receiver port
+      - "4318:4318" # HTTP receiver port
+      - "8888:8888" # Health check and metrics exposure
+      - "13133:13133" # Default health check port
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  redis_insight:
+    image: redislabs/redisinsight:2.62
+    container_name: redis_insight
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight:/db
+    depends_on:
+      - redis
+
+  postgres:
+    image: library/postgres:17
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Pa55W0rd
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d platform_session"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./postgres/schema:/docker-entrypoint-initdb.d
+
+  rustic_api:
+    image: dragonscaleai/rustic-ai:v0.0.7
+    container_name: api_server
+    ports:
+      - "8880:8880"
+    secrets:
+      - api_keys
+    command: >
+      sh -c "
+        export $( grep -vE '^(#.*|\s*)$' /run/secrets/api_keys ) && 
+        opentelemetry-instrument python -Xfrozen_modules=off -m rustic_ai.api_server.main"
+    environment:
+      - OTEL_SERVICE_NAME=GuildCommunicationService
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://otelcol:4318/v1/traces
+      - OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+      - RUSTIC_METASTORE=postgresql+psycopg://admin:Pa55W0rd@postgres:5432/rustic
+      - RUSTIC_CORS_ORIGIN=http://localhost:3000
+      - RUSTIC_LOGGING_LEVEL=INFO
+      - RUSTIC_AI_MESSAGING_MODULE=rustic_ai.redis.messaging.backend
+      - RUSTIC_AI_MESSAGING_CLASS=RedisMessagingBackend
+      - RUSTIC_AI_MESSAGING_BACKEND_CONFIG={"redis_client":{"host":"redis","port":6379}}
+      - RUSTIC_AI_DEPENDENCY_CONFIG=/home/ray/app/conf/agent-dependencies.yaml
+      - RUSTIC_PUBLIC_ENDPOINT=http://localhost:3001
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python3 -c 'import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.settimeout(5); s.connect((\"localhost\", 8880)); s.sendall(b\"GET /__health HTTP/1.1\\r\\nHost: localhost\\r\\n\\r\\n\"); response = s.recv(1024).decode(); print(response); s.close(); exit(0) if \"200 OK\" in response else exit(1)'",
+        ]
+      interval: 30s # Time between running the check
+      timeout: 10s # Time to wait for the check to complete
+      retries: 3 # Consecutive failures needed to report an unhealthy status
+      start_period: 30s # Start period for the container to initialize before starting health checks
+    depends_on:
+      - zipkin
+      - otel-collector
+      - redis
+      - postgres
+
+volumes:
+  redisinsight:
+
+secrets:
+  api_keys:
+    file: ./.env
+

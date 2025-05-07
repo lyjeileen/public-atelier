@@ -64,7 +64,7 @@ services:
       - ./postgres/schema:/docker-entrypoint-initdb.d
 
   rustic_api:
-    image: dragonscaleai/rustic-ai:v0.0.8
+    image: dragonscaleai/rustic-ai:v0.0.9
     container_name: api_server
     ports:
       - "8880:8880"

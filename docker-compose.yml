@@ -19,7 +19,7 @@ services:
       - ./scripts:/scripts
 
   ui:
-    image: dragonscaleai/rustic-ui:v0.0.1
+    image: dragonscaleai/rustic-ui:v0.0.2
     environment:
       - RUSTIC_API_BASEPATH=http://localhost:3001/rustic
       - API_BASEPATH=http://localhost:3001/
@@ -29,7 +29,7 @@ services:
       - api_proxy
 
   api_proxy:
-    image: dragonscaleai/rustic-proxy:v0.0.1
+    image: dragonscaleai/rustic-proxy:v0.0.2
     container_name: api_proxy
     command: npm start
     environment:

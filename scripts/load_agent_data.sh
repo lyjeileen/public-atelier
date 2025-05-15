@@ -3,7 +3,13 @@
 register_agents() {
     host=${RUSTIC_AI_HOST:-"http://localhost:8880"}
     echo "host is $host"
-    agents_data=$(cat "${DATA_FOLDER:-./data}/agents.json")
+    agents_data=$(curl -s "$host/api/registry/agents/")
+
+    if [ $? -ne 0 ]; then
+        echo "Failed to fetch agent data from API"
+        exit 1
+    fi
+    
     agents_endpoint="/catalog/agents"
 
 
